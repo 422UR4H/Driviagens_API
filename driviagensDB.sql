@@ -1,12 +1,12 @@
 CREATE TABLE passengers (
 	id SERIAL PRIMARY KEY,
-	"firstName" VARCHAR(32),
-	"lastName" VARCHAR(64)
+	"firstName" VARCHAR(100),
+	"lastName" VARCHAR(100)
 );
 
 CREATE TABLE cities (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(64)
+	name VARCHAR(50)
 );
 
 CREATE TABLE flights (
