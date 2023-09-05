@@ -11,13 +11,13 @@ CREATE TABLE cities (
 
 CREATE TABLE flights (
 	id SERIAL PRIMARY KEY,
-	origin INTEGER REFERENCES cities(id),
-	destination INTEGER REFERENCES cities(id),
+	origin INTEGER REFERENCES cities(id) ON DELETE CASCADE,
+	destination INTEGER REFERENCES cities(id) ON DELETE CASCADE,
 	date DATE
 );
 
 CREATE TABLE travels (
 	id SERIAL PRIMARY KEY,
-	passengerId INTEGER REFERENCES passengers(id),
-	flightId INTEGER REFERENCES flights(id)
+	"passengerId" INTEGER REFERENCES passengers(id) ON DELETE CASCADE,
+	"flightId" INTEGER REFERENCES flights(id) ON DELETE CASCADE
 );
