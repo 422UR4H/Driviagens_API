@@ -1,16 +1,16 @@
 import httpStatus from "http-status";
-import { passengerService } from "../services/passenger.services.js";
+import { flightService } from "../services/flight.services.js";
 
 async function create(req, res) {
-    const { firstName, lastName } = req.body;
+    const { origin, destination, date } = req.body;
     try {
-        await passengerService.create(firstName, lastName);
+        await flightService.create(origin, destination, date);
         res.sendStatus(httpStatus.CREATED);
     } catch (err) {
         res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err);
     }
 }
 
-export const passengerController = {
+export const flightController = {
     create
 }

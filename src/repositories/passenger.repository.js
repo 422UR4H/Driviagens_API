@@ -1,6 +1,6 @@
 import { clientDB } from "../database/db.connection.js";
 
-function createPassengerDB(firstName, lastName) {
+function create(firstName, lastName) {
     return clientDB.query(`
         INSERT INTO passengers ("firstName", "lastName")
         VALUES ($1, $2);`,
@@ -9,5 +9,5 @@ function createPassengerDB(firstName, lastName) {
 }
 
 export const passengerRepository = {
-    createPassengerDB
+    create
 };

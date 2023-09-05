@@ -1,9 +1,9 @@
 import { passengerRepository } from "../repositories/passenger.repository.js";
 
-function createPassenger(firstName, lastName) {
-    return passengerRepository.createPassengerDB(firstName, lastName);
+function create(firstName, lastName) {
+    return passengerRepository.create(firstName, lastName);
 }
 
 export const passengerService = {
-    createPassenger
+    create
 };
