@@ -3,12 +3,8 @@ import { flightService } from "../services/flight.services.js";
 
 async function create(req, res) {
     const { origin, destination, date } = req.body;
-    try {
-        await flightService.create(origin, destination, date);
-        res.sendStatus(httpStatus.CREATED);
-    } catch (err) {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err);
-    }
+    await flightService.create(origin, destination, date);
+    res.sendStatus(httpStatus.CREATED);
 }
 
 export const flightController = {
