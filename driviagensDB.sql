@@ -6,7 +6,7 @@ CREATE TABLE passengers (
 
 CREATE TABLE cities (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(50)
+	name VARCHAR(50) UNIQUE
 );
 
 CREATE TABLE flights (
