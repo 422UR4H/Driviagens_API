@@ -13,7 +13,7 @@ CREATE TABLE flights (
 	id SERIAL PRIMARY KEY,
 	origin INTEGER REFERENCES cities(id) ON DELETE CASCADE,
 	destination INTEGER REFERENCES cities(id) ON DELETE CASCADE,
-	date DATE
+	date TIMESTAMP
 );
 
 CREATE TABLE travels (
