@@ -5,6 +5,7 @@ import { flightRepository } from "../repositories/flight.repository.js";
 async function create(origin, destination, date) {
     const c = date.match(/[^0-9]/)[0];
     if (c !== '-') throw errors.unprocessableEntity("date");
+    if (date.length !== 10) throw errors.unprocessableEntity("date");
     
     if (origin == destination) {
         throw errors.conflict("origin and destination must be distinct even if these cities");
@@ -18,6 +19,10 @@ async function create(origin, destination, date) {
     return flightRepository.create(origin, destination, date);
 }
 
+async function readAll(origin, destination, biggerDate, smallerDate) {
+    
+}
+
 export const flightService = {
-    create
+    create, readAll
 };
