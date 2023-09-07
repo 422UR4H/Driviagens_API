@@ -1,37 +1,24 @@
 import httpStatus from "http-status";
 
+function badRequest(entity) {
+    const type = "badRequest";
+    if (!entity) return { type, status: httpStatus.BAD_REQUEST };
+    return { type, message: `${entity} is not valid` }
+}
 function notFound(entity) {
     const type = "notFound";
-    if (!entity) return {
-        type,
-        status: httpStatus.NOT_FOUND
-    };
-    return {
-        type,
-        message: `${entity} does not exist`
-    };
+    if (!entity) return { type, status: httpStatus.NOT_FOUND };
+    return { type, message: `${entity} does not exist` };
 }
 function conflict(entity) {
     const type = "conflict";
-    if (!entity) return {
-        type,
-        status: httpStatus.CONFLICT
-    };
-    return {
-        type,
-        message: `${entity} already exists`
-    };
+    if (!entity) return { type, status: httpStatus.CONFLICT };
+    return { type, message: `${entity} already exists` };
 }
 function unprocessableEntity(entity) {
     const type = "unprocessableEntity";
-    if (!entity) return {
-        type,
-        status: httpStatus.UNPROCESSABLE_ENTITY
-    };
-    return {
-        type,
-        message: `${entity} is not valid`
-    };
+    if (!entity) return { type, status: httpStatus.UNPROCESSABLE_ENTITY };
+    return { type, message: `${entity} is not valid` };
 }
 function internalServerError() {
     return {
@@ -40,6 +27,7 @@ function internalServerError() {
     };
 }
 export const errors = {
+    badRequest,
     notFound,
     conflict,
     unprocessableEntity,

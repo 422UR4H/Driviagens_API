@@ -16,6 +16,20 @@ function readById(id) {
     );
 }
 
+function readAll(origin, destination, smallerDate, biggerDate) {
+    return clientDB.query(`
+        SELECT f.id, f.date, o.name AS origin, d.name AS destination
+        FROM flights AS f
+        JOIN cities AS o ON f.origin = o.id
+        JOIN cities AS d ON f.destination = d.id
+        WHERE o.name = COALESCE($1, o.name)
+            AND d.name = COALESCE($2, d.name)
+            AND f.date > COALESCE($3, 0)
+        ORDER BY f.date;`,
+        [origin, destination, smallerDate, biggerDate]
+    );
+}
+
 export const flightRepository = {
-    create, readById
+    create, readById, readAll
 };

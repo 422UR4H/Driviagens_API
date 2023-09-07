@@ -1,7 +1,8 @@
 export default function toggleFirstThirdPositions(date) {
-    const c = date.match(/[^0-9]/)[0];
-    const newDate = date.split(c);
+    const c = date?.match(/[^0-9]/)[0];
+    if (!c) return date;
 
+    const newDate = date.split(c);
     if (newDate.length > 3) return {
         type: "error",
         message: "toggle only three positions"

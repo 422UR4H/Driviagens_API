@@ -2,6 +2,9 @@ import { errors } from "../errors/errors.js";
 
 export default function errorHandler(err, req, res, next) {
     switch (err.type) {
+        case errors.badRequest().type:
+            res.status(errors.badRequest().status);
+            break;
         case errors.notFound().type:
             res.status(errors.notFound().status);
             break;
