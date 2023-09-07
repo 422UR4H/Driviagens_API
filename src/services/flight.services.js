@@ -38,7 +38,7 @@ function readAll(origin, destination, smallerDate, biggerDate) {
         }
         if (dayjs(biggerDate).isBefore(smallerDate)) throw errors.badRequest("order of dates");
     }
-    return flightRepository.readAll(origin, destination, dayjs(smallerDate).valueOf(), dayjs(biggerDate).valueOf());
+    return flightRepository.readAll(origin, destination, smallerDate, biggerDate);
 }
 
 export const flightService = {

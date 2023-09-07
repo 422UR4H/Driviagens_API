@@ -24,12 +24,12 @@ function readAll(origin, destination, smallerDate, biggerDate) {
         JOIN cities AS d ON f.destination = d.id
         WHERE o.name = COALESCE($1, o.name)
             AND d.name = COALESCE($2, d.name)
-            AND f.date > COALESCE($3, 0)
+            AND f.date >= COALESCE($3, f.date)
+            AND f.date <= COALESCE($4, f.date)
         ORDER BY f.date;`,
         [origin, destination, smallerDate, biggerDate]
     );
 }
-
 export const flightRepository = {
     create, readById, readAll
 };
