@@ -8,6 +8,14 @@ function create(origin, destination, date) {
     );
 }
 
+function readById(id) {
+    return clientDB.query(`
+        SELECT * FROM flights
+        WHERE id = $1;`,
+        [id]
+    );
+}
+
 export const flightRepository = {
-    create
+    create, readById
 };

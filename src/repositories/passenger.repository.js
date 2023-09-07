@@ -8,6 +8,14 @@ function create(firstName, lastName) {
     );
 }
 
+function readById(id) {
+    return clientDB.query(`
+        SELECT * FROM passengers
+        WHERE id = $1;`,
+        [id]
+    );
+}
+
 export const passengerRepository = {
-    create
+    create, readById
 };
