@@ -10,6 +10,14 @@ function create(name) {
     );
 }
 
+function readById(id) {
+    return clientDB.query(`
+        SELECT * FROM cities
+        WHERE id = $1;`,
+        [id]
+    );
+}
+
 export const cityRepository = {
-    create
+    create, readById
 };
