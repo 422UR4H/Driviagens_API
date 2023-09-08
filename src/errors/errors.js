@@ -20,11 +20,10 @@ function unprocessableEntity(entity) {
     if (!entity) return { type, status: httpStatus.UNPROCESSABLE_ENTITY };
     return { type, message: `${entity} is not valid` };
 }
-function internalServerError() {
-    return {
-        type: "internalServerError",
-        status: httpStatus.INTERNAL_SERVER_ERROR
-    };
+function internalServerError(message) {
+    const type = "internalServerError";
+    if (message) return { type, message, status: httpStatus.INTERNAL_SERVER_ERROR };
+    return { type, status: httpStatus.INTERNAL_SERVER_ERROR };
 }
 export const errors = {
     badRequest,

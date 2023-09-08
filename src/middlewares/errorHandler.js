@@ -14,6 +14,9 @@ export default function errorHandler(err, req, res, next) {
         case errors.unprocessableEntity().type:
             res.status(errors.unprocessableEntity().status);
             break;
+        // case errors.internalServerError().type:
+        //     res.status(errors.internalServerError().status);
+        //     break;
         default:
             res.status(errors.internalServerError().status);
     }
