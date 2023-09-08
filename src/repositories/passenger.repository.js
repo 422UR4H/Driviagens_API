@@ -18,7 +18,9 @@ function readById(id) {
 
 function readAll(name = "") {
     return clientDB.query(`
-        SELECT p."firstName", p."lastName", COUNT(t.id) AS travels
+        SELECT
+            CONCAT(p."firstName", ' ', p."lastName") AS passenger,
+            COUNT(t.id) AS travels
         FROM passengers AS p
         JOIN travels AS t ON p.id = t."passengerId"
         WHERE p."firstName" ILIKE $1 OR p."lastName" ILIKE $1
