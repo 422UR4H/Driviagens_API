@@ -32,7 +32,6 @@ function readAll(page = 1, origin, destination, smallerDate, biggerDate) {
         if (c !== '-' || biggerDate?.length !== 10) {
             throw errors.unprocessableEntity("bigger-date");
         }
-
         if (!!smallerDate !== !!biggerDate) {
             throw errors.unprocessableEntity("only one date (bigger-date OR smaller-date)");
         }
