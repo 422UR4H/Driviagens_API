@@ -10,12 +10,11 @@ async function create(origin, destination, date) {
     if (origin == destination) {
         throw errors.conflict("origin and destination must be distinct even if these cities");
     }
-    if ((await cityRepository.readById(origin)).rowCount <= 0) {
-        throw errors.notFound("origin ciy");
-    }
-    if ((await cityRepository.readById(destination)).rowCount <= 0) {
-        throw errors.notFound("destination ciy");
-    }
+    const result = await cityRepository.readOriginAndDestination(origin, destination);
+    if (result.rowCount === 0) throw errors.notFound("origin and destination cities");
+    if (!result.rows.find(row => row.id === origin)) throw errors.notFound("origin city");
+    if (!result.rows.find(row => row.id === destination)) throw errors.notFound("destination city");
+
     return flightRepository.create(origin, destination, date);
 }
 

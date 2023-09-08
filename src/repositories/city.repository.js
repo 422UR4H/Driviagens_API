@@ -10,6 +10,14 @@ function create(name) {
     );
 }
 
+function readOriginAndDestination(origin, destination) {
+    return clientDB.query(`
+        SELECT * FROM cities
+        WHERE (id = $1 OR id = $2);`,
+        [origin, destination]
+    );
+}
+
 function readById(id) {
     return clientDB.query(`
         SELECT * FROM cities
@@ -19,5 +27,5 @@ function readById(id) {
 }
 
 export const cityRepository = {
-    create, readById
+    create, readOriginAndDestination, readById
 };
