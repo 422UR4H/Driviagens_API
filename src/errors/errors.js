@@ -1,9 +1,7 @@
 import httpStatus from "http-status";
 
-function badRequest(entity) {
-    const type = "badRequest";
-    if (!entity) return { type, status: httpStatus.BAD_REQUEST };
-    return { type, message: `${entity} is not valid` }
+function badRequest(message = "entity is not valid") {
+    return { type: "badRequest", message, status: httpStatus.BAD_REQUEST };
 }
 function notFound(entity) {
     const type = "notFound";

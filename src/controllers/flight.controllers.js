@@ -9,8 +9,8 @@ async function create(req, res) {
 }
 
 async function readAll(req, res) {
-    const { origin, destination, smallerDate, biggerDate } = req.query;
-    const result = await flightService.readAll(origin, destination, smallerDate, biggerDate);
+    const { page, origin, destination, smallerDate, biggerDate } = req.query;
+    const result = await flightService.readAll(page, origin, destination, smallerDate, biggerDate);
 
     result.rows.map(flight => flight.date = dayjs(flight.date).format("DD-MM-YYYY"));
     res.send(result.rows);

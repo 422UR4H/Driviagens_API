@@ -5,9 +5,8 @@ import { flightRepository } from "../repositories/flight.repository.js";
 
 async function create(origin, destination, date) {
     const c = date?.match(/[^0-9]/)[0];
-    if (c !== '-') throw errors.unprocessableEntity("date");
-    if (date.length !== 10) throw errors.unprocessableEntity("date");
-    
+    if (c !== '-' || date.length !== 10) throw errors.unprocessableEntity("date");
+
     if (origin == destination) {
         throw errors.conflict("origin and destination must be distinct even if these cities");
     }
@@ -20,25 +19,29 @@ async function create(origin, destination, date) {
     return flightRepository.create(origin, destination, date);
 }
 
-function readAll(origin, destination, smallerDate, biggerDate) {
+function readAll(page = 1, origin, destination, smallerDate, biggerDate) {
+    if (isNaN(page) || parseInt(page) <= 0) {
+        throw errors.badRequest("Invalid page value");
+    }
     if (smallerDate || biggerDate) {
         let c = smallerDate?.match(/[^0-9]/)[0];
-        // console.log(smallerDate)
         if (c !== '-' || smallerDate?.length !== 10) {
             throw errors.unprocessableEntity("smaller-date");
         }
-    
+
         c = biggerDate?.match(/[^0-9]/)[0];
         if (c !== '-' || biggerDate?.length !== 10) {
             throw errors.unprocessableEntity("bigger-date");
         }
-    
+
         if (!!smallerDate !== !!biggerDate) {
             throw errors.unprocessableEntity("only one date (bigger-date OR smaller-date)");
         }
-        if (dayjs(biggerDate).isBefore(smallerDate)) throw errors.badRequest("order of dates");
+        if (dayjs(biggerDate).isBefore(smallerDate)) {
+            throw errors.badRequest("smaller-date must be lower than bigger-date");
+        }
     }
-    return flightRepository.readAll(origin, destination, smallerDate, biggerDate);
+    return flightRepository.readAll(parseInt(page), origin, destination, smallerDate, biggerDate);
 }
 
 export const flightService = {

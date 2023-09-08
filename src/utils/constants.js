@@ -1,0 +1,1 @@
+export const PAGINATION_NUMBER = 10;

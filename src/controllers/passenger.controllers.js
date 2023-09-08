@@ -8,8 +8,8 @@ async function create(req, res) {
 }
 
 async function readAll(req, res) {
-    const { name } = req.query;
-    const result = await passengerService.readAll(name);
+    const { name, page } = req.query;
+    const result = await passengerService.readAll(name, page);
     res.send(result.rows);
 }
 
