@@ -7,6 +7,18 @@ async function create(req, res) {
     res.sendStatus(httpStatus.CREATED);
 }
 
+async function readAll(req, res) {
+    const { name } = req.query;
+    const result = await passengerService.readAll(name);
+
+    result.rows.map(r => {
+        r.passenger = r.firstName + " " + r.lastName;
+        delete r.firstName
+        delete r.lastName
+    });
+    res.send(result.rows);
+}
+
 export const passengerController = {
-    create
+    create, readAll
 }

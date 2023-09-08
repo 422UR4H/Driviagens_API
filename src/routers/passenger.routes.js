@@ -6,5 +6,6 @@ import validateSchema from "../middlewares/validateSchema.js";
 const router = Router();
 
 router.post("/passengers", validateSchema(passengerSchema), passengerController.create);
+router.get("/passengers/travels", passengerController.readAll);
 
 export default router;

@@ -16,6 +16,18 @@ function readById(id) {
     );
 }
 
+function readAll(name = "") {
+    return clientDB.query(`
+        SELECT p."firstName", p."lastName", COUNT(t.id) AS travels
+        FROM passengers AS p
+        JOIN travels AS t ON p.id = t."passengerId"
+        WHERE p."firstName" ILIKE $1 OR p."lastName" ILIKE $1
+        GROUP BY p.id
+        ORDER BY travels DESC;`,
+        [`%${name}%`]
+    );
+}
+
 export const passengerRepository = {
-    create, readById
+    create, readById, readAll
 };
