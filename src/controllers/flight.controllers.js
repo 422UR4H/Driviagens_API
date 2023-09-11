@@ -8,7 +8,7 @@ dayjs.extend(customParseFormat);
 
 async function create(req, res) {
     const { origin, destination, date } = req.body;
-    await flightService.create(origin, destination, date);
+    await flightService.create(origin, destination, dayjs(date, "DD-MM-YYYY"));
     res.sendStatus(httpStatus.CREATED);
 }
 
