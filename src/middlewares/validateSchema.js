@@ -6,7 +6,7 @@ export default function validateSchema(schema) {
         const { body, query } = req;
         if (isEmpty(body) && isEmpty(query)) return next();
 
-        const { error } = schema.validate(body || query, { abortEarly: false });
+        const { error } = schema.validate(!isEmpty(body) ? body : query, { abortEarly: false });
         if (error) return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(
             { message: error.details.map(d => d.message) }
         );
