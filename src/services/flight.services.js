@@ -4,9 +4,6 @@ import { cityRepository } from "../repositories/city.repository.js";
 import { flightRepository } from "../repositories/flight.repository.js";
 
 async function create(origin, destination, date) {
-    const c = date?.match(/[^0-9]/)[0];
-    if (c !== '-' || date.length !== 10) throw errors.unprocessableEntity("date");
-
     if (origin == destination) {
         throw errors.conflict("origin and destination must be distinct even if these cities");
     }
@@ -23,15 +20,6 @@ function readAll(page = 1, origin, destination, smallerDate, biggerDate) {
         throw errors.badRequest("Invalid page value");
     }
     if (smallerDate || biggerDate) {
-        let c = smallerDate?.match(/[^0-9]/)[0];
-        if (c !== '-' || smallerDate?.length !== 10) {
-            throw errors.unprocessableEntity("smaller-date");
-        }
-
-        c = biggerDate?.match(/[^0-9]/)[0];
-        if (c !== '-' || biggerDate?.length !== 10) {
-            throw errors.unprocessableEntity("bigger-date");
-        }
         if (!!smallerDate !== !!biggerDate) {
             throw errors.unprocessableEntity("only one date (bigger-date OR smaller-date)");
         }
