@@ -15,8 +15,11 @@ async function create(req, res) {
 async function readAll(req, res) {
     const { page, origin, destination } = req.query;
     const { "smaller-date": smallerDate, "bigger-date": biggerDate } = req.query;
+    const formattedSmallerDate = !!smallerDate ? dayjs(smallerDate, "DD-MM-YYYY") : smallerDate;
+    const formattedBiggerDate = !!biggerDate ? dayjs(biggerDate, "DD-MM-YYYY") : biggerDate;
+    
     const result = await flightService.readAll(
-        page, origin, destination, dayjs(smallerDate, "DD-MM-YYYY"), dayjs(biggerDate, "DD-MM-YYYY")
+        page, origin, destination, formattedSmallerDate, formattedBiggerDate
     );
     result.rows.map(flight => flight.date = dayjs(flight.date).format("DD-MM-YYYY"));
     res.send(result.rows);

@@ -20,8 +20,11 @@ function readAll(page = 1, origin, destination, smallerDate, biggerDate) {
         throw errors.badRequest("Invalid page value");
     }
     if (smallerDate || biggerDate) {
-        if (!!smallerDate !== !!biggerDate) {
-            throw errors.unprocessableEntity("only one date (bigger-date OR smaller-date)");
+        if (!smallerDate) {
+            throw errors.unprocessableEntity("smaller-date");
+        }
+        if (!biggerDate) {
+            throw errors.unprocessableEntity("bigger-date");
         }
         if (dayjs(biggerDate).isBefore(smallerDate)) {
             throw errors.badRequest("smaller-date must be lower than bigger-date");
